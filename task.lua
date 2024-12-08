@@ -1,0 +1,1 @@
+-- on-clik on the right_screen_wibox (Battery + POWER Controls)

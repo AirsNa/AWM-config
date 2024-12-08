@@ -6,24 +6,23 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Define your Mod key (usually "Mod4" = Super/Windows key)
 local SuperKey = "Mod4"
 
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "nvim"
-editor_cmd = terminal .. " -e " .. editor
+local editor_cmd = Terminal .. " -e " .. Editor
 
 -- function needed by some keys
 
-myawesomemenu = {
+local myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "manual", terminal .. " -e man awesome" },
+   { "manual", Terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end },
 }
 
-mymainmenu = awful.menu({
+local mymainmenu = awful.menu({
 			items = {
-			{ "awesome", myawesomemenu, _G.context.beautiful.awesome_icon },
-            { "open terminal", terminal }
+			-- { "awesome", myawesomemenu, _G.context.beautiful.awesome_icon },
+			{ "restart", awesome.restart },
+            { "open Terminal", Terminal }
         }
     })
 
@@ -32,7 +31,7 @@ local globalkeys = gears.table.join(
     -- General AwesomeWM bindings
     awful.key({ SuperKey }, "s", hotkeys_popup.show_help,
         { description = "show help", group = "awesome" }),
-    awful.key({ SuperKey }, "w", function() mymainmenu:show() end,
+    awful.key({ SuperKey, "Shift" }, "w", function() mymainmenu:show() end,
         { description = "show main menu", group = "awesome" }),
 
     -- Tag navigation
@@ -60,12 +59,12 @@ local globalkeys = gears.table.join(
         { description = "focus the previous screen", group = "screen" }),
 
     -- Standard programs
-    awful.key({ SuperKey }, "Return", function() awful.spawn(terminal) end,
-        { description = "open a terminal", group = "launcher" }),
-    awful.key({ SuperKey, "Control" }, "r", awesome.restart,
+    awful.key({ SuperKey }, "Return", function() awful.spawn(Terminal) end,
+        { description = "open a Terminal", group = "launcher" }),
+    awful.key({ SuperKey, "Shift" }, "r", awesome.restart,
         { description = "reload awesome", group = "awesome" }),
-    awful.key({ SuperKey, "Shift" }, "q", awesome.quit,
-        { description = "quit awesome", group = "awesome" }),
+    -- awful.key({ SuperKey, "Shift" }, "q", awesome.quit,
+    --     { description = "quit awesome", group = "awesome" }),
 
     -- Resize and layout
     awful.key({ SuperKey }, "l", function() awful.tag.incmwfact(0.05) end,
